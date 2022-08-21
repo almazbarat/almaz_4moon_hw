@@ -3,8 +3,7 @@ from core.models import Bottle
 # core/views.py
 
 def contacts(request):
-    response = HttpResponse("Тел: 0222202061")
-    return response
+    return render(request, 'core/contacts.html')
 
 def about(request):
     return render(request, 'about.html')
