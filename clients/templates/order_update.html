@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block page %}
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{ up_order_form.as_p }}
+
+        <div><button>Изменить заказ</button></div>
+        <br>
+        {{ del_order_form.as_p }}
+        <div><button>Удалить заказ</button></div>
+
+    </form>
+
+{% endblock %}
