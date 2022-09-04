@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block page %}
+
     <h1>Инфо Клиента</h1>
     <div>Имя: {{ client.name }}</div>
     <div>Aдрес: {{ client.address }}</div>
@@ -12,4 +13,5 @@
         <span>Нет фотографии</span>
     {% endif %}
     </div>
+    
 {% endblock %}

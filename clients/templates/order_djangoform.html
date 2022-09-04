@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 {% block page %}
     <form method="POST">
         {% csrf_token %}
         
-        {{ order_form.as_p }}
+        {% bootstrap_form order_form %}
 
         <div><button>Оформить заказ</button></div>
     </form>

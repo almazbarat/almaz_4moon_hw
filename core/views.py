@@ -14,3 +14,4 @@ def makers_list(request):
     bottles_list = Bottle.objects.all()
     context["bottles_list"] = bottles_list
     return render(request, 'makers.html', context)
+

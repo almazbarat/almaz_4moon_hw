@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block page %}
+   
+    <h2>Информация о Заказе</h2>
+    <div>Клиент: {{ order.client.user.username }}</div>
+    <div>Имя: {{ order.name }}</div>
+    <div>Контакты: {{ order.contacts }}</div>
+    <div>Описание: {{ order.description }}</div>
+    <div>Дата и Время последнего изменения: {{ order.updated_at }}</div>
+    
+{% endblock %}

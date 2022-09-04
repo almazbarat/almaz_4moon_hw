@@ -1,18 +1,27 @@
+from django.views.generic import ListView, DetailView
 from django.shortcuts import render, HttpResponse
 from .models import Client, Order
 from .forms import OrderForm, ClientForm, UpOrderForm
 
-def client_list(request):
-    context ={}
-    context["clients"] = Client.objects.all()
-    return render(request, 'clients.html', context)
 
-def client_detail(request, id):
-    context = {
-        "client" : Client.objects.get(id=id)
-    } #SELECT * FROM Client WHERE id=id
-    return render(request, "client_info.html", context)
+# def client_detail(request, id):
+#     context = {
+#         "client" : Client.objects.get(id=id)
+#     } #SELECT * FROM Client WHERE id=id
+#     return render(request, "client_info.html", context)
 
+class ClientDetailView(DetailView):
+    model = Client
+    template_name = 'client_info.html'
+
+# def client_list(request):
+#     context ={}
+#     context["clients"] = Client.objects.all()
+#     return render(request, 'clients.html', context)
+
+class ClientListView(ListView):
+    model = Client
+    template_name = 'clients.html'
 
 def client_update(request, id):
     context = {}
@@ -24,6 +33,31 @@ def client_update(request, id):
     context["form"] = ClientForm(instance=client_object)
     return render(request, 'client_update.html', context)
 
+
+
+
+# def order_list(request):
+#     context ={}
+#     context["orders"] = Order.objects.all()
+#     return render(request, 'orders.html', context)
+
+class OrderListView(ListView):
+    model = Order
+    template_name = 'orders.html'
+
+# def order_detail(request, id):
+#     context = {
+#         "order" : Order.objects.get(id=id)
+#     }
+#     return render(request, "order_detail.html", context)
+
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = "order_detail.html"
+
+def order_update(request, id):
+    context = {}
+    order_object = Order.objects.get(id=id)
 
 def create_order(request):
     if request.method == "POST":
@@ -37,7 +71,6 @@ def create_order(request):
         return HttpResponse("Форма обработана")
     return render(request, 'core/order_form.html')
 
-
 def order_djangoform(request):
     context = {}
     if request.method == "POST":
@@ -49,24 +82,6 @@ def order_djangoform(request):
     
     context["order_form"] = OrderForm()
     return render(request, 'order_djangoform.html', context)
-
-
-
-def order_list(request):
-    context ={}
-    context["orders"] = Order.objects.all()
-    return render(request, 'orders.html', context)
-
-
-def order_detail(request, id):
-    context = {
-        "order" : Order.objects.get(id=id)
-    } #SELECT * FROM Client WHERE id=id
-    return render(request, "order_info.html", context)
-
-def order_update(request, id):
-    context = {}
-    order_object = Order.objects.get(id=id)
     if request.method == "POST":
         up_order_form = UpOrderForm(request.POST, instance=order_object)
         if up_order_form.is_valid():
@@ -75,15 +90,5 @@ def order_update(request, id):
     return render(request, 'order_update.html', context)
 
 
-def order_del(request, id):
-    context = {}
-    order_object = Order.objects.get(id=id)
-    if request.method == "POST":
-        del_order_form = UpOrderForm(request.POST, instance=order_object)
-        order_object.delete()
-        order_object = del_order_form.save()
-    context["del_order_form"] = UpOrderForm(instance=order_object)
-    return render(request, 'order_update.html', context)
-    
 
 

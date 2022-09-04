@@ -11,12 +11,12 @@
 <body>
     <div class="container">
         <nav>
-            <a href="/makers/">Производители</a>
-            <a href="{% url 'orders-list' %}">Заказы</a>
+            <a href="/">Производители</a>
+            <a href="/clients/">Клиенты</a>
+            <a href="{% url 'orders-list' %}">Список Заказов</a>
             <a href="{% url 'create-order' %}">Заказать</a>
             <a href="/about/">О нас</a>
             <a href="/contacts/">Контакты</a>
-            <a href="/clients/">Клиенты</a>
         </nav>
         <div id="page">
             {% block page %}
