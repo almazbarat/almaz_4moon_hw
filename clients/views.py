@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView
 from django.shortcuts import render, HttpResponse
 from .models import Client, Order
 from .forms import OrderForm, ClientForm, UpOrderForm
-
+from django.contrib.auth.decorators import login_required
 
 # def client_detail(request, id):
 #     context = {
@@ -35,15 +35,15 @@ def client_update(request, id):
 
 
 
+@login_required()
+def order_list(request):
+    context ={}
+    context["object_list"] = Order.objects.all()
+    return render(request, 'orders.html', context)
 
-# def order_list(request):
-#     context ={}
-#     context["orders"] = Order.objects.all()
-#     return render(request, 'orders.html', context)
-
-class OrderListView(ListView):
-    model = Order
-    template_name = 'orders.html'
+# class OrderListView(ListView, ):
+#     model = Order
+#     template_name = 'orders.html'
 
 # def order_detail(request, id):
 #     context = {
@@ -88,6 +88,18 @@ def order_djangoform(request):
             order_object = up_order_form.save()
     context["up_order_form"] = UpOrderForm(instance=order_object)
     return render(request, 'order_update.html', context)
+
+class ClientOrderList(DetailView):
+    template_name = 'orders.html'
+    model = Order
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        pk = kwargs.get("pk")
+        client = Client.objects.get(id=kwargs.get("id"))
+        context["object_list"] = Order.objects.filter(client=client)
+        return render(request, self.template_name, context)
+
 
 
 

@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block page %}
+<br>
+    <h2>Кандай анан, {{ request.user }}</h2>
+<hr>
     <div>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aut autem debitis ex fuga, hic ipsa neque nesciunt nostrum numquam pariatur, placeat quae qui recusandae reprehenderit sunt velit! Distinctio, possimus.
     </div>
@@ -8,5 +11,7 @@
     <form>
         <input type="text">
         <button type="button" class="btn btn-warning">Send</button>
+        <br>
+        <p><a href="{% url 'logout' %}">Log Out</a></p>
     </form>
 {% endblock %}
