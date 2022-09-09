@@ -35,15 +35,15 @@ def client_update(request, id):
 
 
 
-@login_required()
-def order_list(request):
-    context ={}
-    context["object_list"] = Order.objects.all()
-    return render(request, 'orders.html', context)
+# @login_required()
+# def order_list(request):
+#     context ={}
+#     context["object_list"] = Order.objects.all()
+#     return render(request, 'orders.html', context)
 
-# class OrderListView(ListView, ):
-#     model = Order
-#     template_name = 'orders.html'
+class OrderListView(ListView, ):
+    model = Order
+    template_name = 'orders.html'
 
 # def order_detail(request, id):
 #     context = {
@@ -96,7 +96,7 @@ class ClientOrderList(DetailView):
     def get(self, request, *args, **kwargs):
         context = {}
         pk = kwargs.get("pk")
-        client = Client.objects.get(id=kwargs.get("id"))
+        client = Client.objects.get(id=kwargs.get("pk"))
         context["object_list"] = Order.objects.filter(client=client)
         return render(request, self.template_name, context)
 

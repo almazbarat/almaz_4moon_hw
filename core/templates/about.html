@@ -12,6 +12,11 @@
         <input type="text">
         <button type="button" class="btn btn-warning">Send</button>
         <br>
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'logout' %}">Выйти из аккаунта</a></p>
+        {% else %}
+            <p>Вы не вошли в систему</p>
+            <a href="{% url 'sign-in' %}">Войти</a>
+        {% endif %}
     </form>
 {% endblock %}
